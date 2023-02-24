@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="aws-cicd-demo-appFlow" doc:id="82954f90-60b1-4fe5-a2b9-8a951c4a3ae5" >
+		<scheduler doc:name="Scheduler" doc:id="aa02f1f4-1a4e-47e5-8339-b37f9f8d19e7" >
+			<scheduling-strategy >
+				<fixed-frequency frequency="5" timeUnit="MINUTES"/>
+			</scheduling-strategy>
+		</scheduler>
+		<logger level="INFO" doc:name="Start" doc:id="a1d0402d-4991-419a-9910-68335dba03bb" message="aws-cicd-demo-appFlow-Started"/>
+		<ee:transform doc:name="Transform Message" doc:id="29acaeb0-4282-44a6-97d2-84ac7a6862c5" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+"Request processed successfully...!!"]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="End" doc:id="01030ea5-834a-4340-adbf-2fc900210467" message="aws-cicd-demo-appFlow-Completed"/>
+	</flow>
+</mule>

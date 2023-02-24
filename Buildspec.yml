@@ -1,0 +1,23 @@
+version: 0.1
+env:
+    variables:
+        JAVA_HOME: "/usr/lib/jvm/java-8-openjdk-amd64"
+phases:
+    pre_build:
+        commands:
+            - cp settings.xml /root/.m2/settings.xml
+            - cd ./
+            - mvn  clean test -DskipTests
+    build:
+        commands:
+            - mvn  package -DskipTests
+    post_build:
+        commands:
+            - mvn  deploy -DmuleDeploy -DskipTests
+artifacts:
+    files:
+        - target/*.jar
+    discard-paths: yes
+cache:
+    paths:
+        - '/root/.m2/**/*'
